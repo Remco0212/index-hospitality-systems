@@ -11,14 +11,17 @@ export class GameService {
     private score: Score = new Score();
     private shapes: string[] = ["rect", "circle", "triangle"];
 
-    constructor() { }
+    constructor() {}
 
     public getCurrentScore(): Score {
         return this.score;
     }
 
     public generateNewItems(): DroppingObject[] {
-        const count = Math.max(Math.floor(Math.random() * (this.score.score * 0.2)), 1);
+        const count = Math.max(
+            Math.floor(Math.random() * (this.score.score * 0.2)),
+            1
+        );
         const hueStepSize = 360 / (count + 1);
         let hue = 0;
         const newAddedItems: DroppingObject[] = [];
@@ -28,9 +31,11 @@ export class GameService {
                 x: width
             });
 
-            hue = hue + hueStepSize
+            hue = hue + hueStepSize;
             const newDroppingObject = new DroppingObject({
-                shape: this.shapes[Math.floor(Math.random() * this.shapes.length)],
+                shape: this.shapes[
+                    Math.floor(Math.random() * this.shapes.length)
+                ],
                 position: position,
                 color: hue
             });
@@ -42,7 +47,11 @@ export class GameService {
     }
 
     public updateGameState(): DroppingObject[] {
-        if (this.itemsOnScreen.every((ios: DroppingObject) => !this.isItemOnScreen(ios))) {
+        if (
+            this.itemsOnScreen.every(
+                (ios: DroppingObject) => !this.isItemOnScreen(ios)
+            )
+        ) {
             this.generateNewItems();
         }
 
@@ -65,7 +74,9 @@ export class GameService {
     }
 
     private updateItemsOnScreen(): void {
-        const activeObjects = this.itemsOnScreen.filter((ios: DroppingObject) => this.isItemOnScreen(ios));
+        const activeObjects = this.itemsOnScreen.filter((ios: DroppingObject) =>
+            this.isItemOnScreen(ios)
+        );
         for (const object of activeObjects) {
             const nextPosition = Math.floor(Math.random() * 10);
             object.position.y += nextPosition;
@@ -73,7 +84,9 @@ export class GameService {
     }
 
     private cleanupItemsOnScreen(): void {
-        const inActiveObjects = this.itemsOnScreen.filter((ios: DroppingObject) => !this.isItemOnScreen(ios) || ios.hit);
+        const inActiveObjects = this.itemsOnScreen.filter(
+            (ios: DroppingObject) => !this.isItemOnScreen(ios) || ios.hit
+        );
         for (const object of inActiveObjects) {
             if (!object.hit) {
                 if (this.score.score > 0) {

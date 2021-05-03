@@ -6,7 +6,12 @@ export class DroppingObject {
     public hit = false;
     public color = 0;
 
-    constructor(data?: { shape: string, position: Position, color: number, hit?: boolean }) {
+    constructor(data?: {
+        shape: string;
+        position: Position;
+        color: number;
+        hit?: boolean;
+    }) {
         this.shape = data?.shape || "rect";
         this.position = data?.position || new Position();
         this.hit = data?.hit || false;

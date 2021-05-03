@@ -25,4 +25,4 @@ const routes: Routes = [
     entryComponents: [GameOverComponent],
     exports: [RouterModule]
 })
-export class GameModule { }
+export class GameModule {}

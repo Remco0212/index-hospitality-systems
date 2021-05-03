@@ -10,7 +10,7 @@ export class DroppingObjectComponent {
     @Input() public droppingObject: DroppingObject = new DroppingObject();
     @Output()
     public droppingObjectClicked: EventEmitter<void> = new EventEmitter<void>();
-    constructor() { }
+    constructor() {}
 
     public getStyle(): {
         left: string;

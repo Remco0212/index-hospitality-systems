@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from "@angular/router";
     templateUrl: "./game.component.html",
     styleUrls: ["./game.component.scss"]
 })
-export class GameComponent implements OnInit{
+export class GameComponent implements OnInit {
     public countdownNumber = 3;
     public droppingItems: DroppingObject[] = [];
     public score: Score = new Score();
@@ -31,7 +31,7 @@ export class GameComponent implements OnInit{
     public ngOnInit(): void {
         this.score.score = 0;
         this.score.lives = 3;
-    }    
+    }
 
     public startCountdown(): void {
         const interval = setInterval(() => {
@@ -66,11 +66,13 @@ export class GameComponent implements OnInit{
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         const dialogRef = this.dialog.open(GameOverComponent, dialogConfig);
-        const subscription = dialogRef.afterClosed().subscribe((result: string) => {
-            this.score.name = result;
-            this.scoreService.uploadScore(this.score);
-            subscription.unsubscribe();
-            this.router.navigate(["/"], { relativeTo: this.route });
-        });
+        const subscription = dialogRef
+            .afterClosed()
+            .subscribe((result: string) => {
+                this.score.name = result;
+                this.scoreService.uploadScore(this.score);
+                subscription.unsubscribe();
+                this.router.navigate(["/"], { relativeTo: this.route });
+            });
     }
 }

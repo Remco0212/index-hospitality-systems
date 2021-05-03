@@ -8,7 +8,7 @@ import { MatDialogRef } from "@angular/material/dialog";
 })
 export class GameOverComponent {
     public name = "";
-    constructor(public dialogRef: MatDialogRef<GameOverComponent>) { }
+    constructor(public dialogRef: MatDialogRef<GameOverComponent>) {}
 
     public nameChanged(changedName: string): void {
         this.name = changedName;

@@ -9,7 +9,7 @@ import { Score } from "../../../shared/models/score.model";
 })
 export class ScoreBoardComponent implements OnInit {
     public scores: Score[] = [];
-    constructor(private readonly scoreService: ScoreService) { }
+    constructor(private readonly scoreService: ScoreService) {}
 
     public ngOnInit(): void {
         this.scores = this.scoreService.getAllScores().slice(0, 10);

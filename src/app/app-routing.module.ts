@@ -10,7 +10,9 @@ const routes: Routes = [
     {
         path: "scoreboard",
         loadChildren: () =>
-            import("./features/scoreboard/scoreboard.module").then((m) => m.ScoreBoardModule)
+            import("./features/scoreboard/scoreboard.module").then(
+                (m) => m.ScoreBoardModule
+            )
     },
     {
         path: "",
@@ -23,4 +25,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
