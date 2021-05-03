@@ -1,0 +1,16 @@
+<div class="score-header">
+    <span>
+        Score: {{score.score}}
+    </span>
+</div>
+
+<div class="countdown-container" *ngIf="countdownNumber > 0">
+    <span class="countdown animation" #countdown>{{countdownNumber}}</span>
+</div>
+
+<div class="game-screen">
+    <ng-container *ngFor="let object of droppingItems">
+        <app-dropping-object [droppingObject]="object" (droppingObjectClicked)="droppingObjectClicked(object)">
+        </app-dropping-object>
+    </ng-container>
+</div>

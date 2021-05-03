@@ -1,0 +1,27 @@
+@import "../../../../variables";
+
+.scoreboard {
+    border-radius: 20px;
+    border: $accent-border;
+    min-width: 325px;
+    padding: 16px;
+
+    position: absolute;
+    top: 25%;
+    left: calc((100vw - 325px) / 2);
+
+    .score {
+        border-bottom: $accent-border;
+        background: transparent;
+        color: $accent-color;
+        display: flex;
+        justify-content: space-between;
+        span {
+            padding: 16px 4px 8px;
+        }
+    }
+}
+
+.logo {
+    margin: 16px;
+}

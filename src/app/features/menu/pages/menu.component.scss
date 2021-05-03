@@ -1,0 +1,16 @@
+@import "../../../../variables";
+
+.menu {
+    border-radius: 20px;
+    border: $accent-border;
+    min-width: 200px;
+    padding: 16px;
+
+    position: absolute;
+    top: 25%;
+    left: calc((100vw - 325px) / 2);
+}
+
+.logo {
+    margin: 16px;
+}

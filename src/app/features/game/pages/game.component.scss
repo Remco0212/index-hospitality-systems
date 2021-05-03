@@ -1,0 +1,47 @@
+@import "../../../../variables";
+
+.countdown-container {
+    position: absolute;
+    top: 40%;
+    left: 48%;
+    .countdown {
+        font-size: 5rem;
+        &.animation {
+            animation: bounce 1s infinite;
+        }
+    }
+}
+
+.game-screen {
+    height: calc(100vh - 2px);
+    border-bottom: 2px $error-color solid;
+}
+
+.score-header {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    background-color: $accent-color;
+    color: white;
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+    > span {
+        margin-right: 40px;
+    }
+}
+
+@keyframes bounce {
+    0% {
+        font-size: 5rem;
+    }
+    25% {
+        font-size: 6rem;
+    }
+    40% {
+        font-size: 5rem;
+    }
+    100% {
+        font-size: 5rem;
+    }
+}

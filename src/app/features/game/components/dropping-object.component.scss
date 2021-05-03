@@ -1,0 +1,21 @@
+div.item {
+    position: absolute;
+    cursor: pointer;
+    pointer-events: all;
+
+    &.rect,
+    &.circle {
+        height: 100px;
+        width: 100px;
+    }
+
+    &.circle {
+        border-radius: 50%;
+    }
+
+    &.triangle {
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 100px solid;
+    }
+}
