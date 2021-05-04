@@ -13,37 +13,39 @@ export class GameService {
 
     constructor() {}
 
+    public resetGame(): void {
+        this.score = new Score();
+        this.itemsOnScreen = [];
+    }
+
     public getCurrentScore(): Score {
         return this.score;
     }
 
-    public generateNewItems(): DroppingObject[] {
+    public generateNewItems(): void {
         const count = Math.max(
-            Math.floor(Math.random() * (this.score.score * 0.2)),
+            Math.floor(Math.random() * (this.score.score * 0.1)),
             1
         );
-        const hueStepSize = 360 / (count + 1);
+        const hueStepSize = Math.floor(360 / (this.score.score + count));
         let hue = 0;
-        const newAddedItems: DroppingObject[] = [];
         for (let i = 0; i < count; i++) {
-            const width = Math.floor(Math.random() * (window.innerWidth - 100));
+            const x = Math.floor(Math.random() * (window.innerWidth - 100));
             const position = new Position({
-                x: width
+                x
             });
 
-            hue = hue + hueStepSize;
+            hue = Math.floor(Math.random() * this.score.score * hueStepSize);
+            const shape = this.shapes[
+                Math.floor(Math.random() * this.shapes.length)
+            ];
             const newDroppingObject = new DroppingObject({
-                shape: this.shapes[
-                    Math.floor(Math.random() * this.shapes.length)
-                ],
-                position: position,
+                shape,
+                position,
                 color: hue
             });
-            newAddedItems.push(newDroppingObject);
+            this.itemsOnScreen.push(newDroppingObject);
         }
-
-        this.itemsOnScreen = this.itemsOnScreen.concat(...newAddedItems);
-        return newAddedItems;
     }
 
     public updateGameState(): DroppingObject[] {
@@ -78,7 +80,7 @@ export class GameService {
             this.isItemOnScreen(ios)
         );
         for (const object of activeObjects) {
-            const nextPosition = Math.floor(Math.random() * 10);
+            const nextPosition = Math.floor(Math.random() * 5);
             object.position.y += nextPosition;
         }
     }
@@ -91,9 +93,6 @@ export class GameService {
             if (!object.hit) {
                 if (this.score.score > 0) {
                     this.score.score--;
-                    this.score.lives--;
-                } else {
-                    this.score.lives = 0;
                 }
             }
             this.itemsOnScreen.splice(this.itemsOnScreen.indexOf(object), 1);

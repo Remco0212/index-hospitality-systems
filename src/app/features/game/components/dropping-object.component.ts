@@ -19,8 +19,8 @@ export class DroppingObjectComponent {
         borderBottomColor: string;
     } {
         const styles = {
-            left: this.droppingObject.position.x + "px",
-            top: this.droppingObject.position.y + "px",
+            left: `${this.droppingObject.position.x}px`,
+            top: `${this.droppingObject.position.y}px`,
             backgroundColor:
                 this.droppingObject.shape !== "triangle"
                     ? `hsla(${this.droppingObject.color}, 60%, 85%, 1)`

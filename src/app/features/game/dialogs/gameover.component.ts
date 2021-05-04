@@ -15,8 +15,10 @@ export class GameOverComponent {
     }
 
     public close(): void {
-        if (this.name) {
-            this.dialogRef.close(this.name);
+        if (!this.name) {
+            return;
         }
+
+        this.dialogRef.close(this.name);
     }
 }

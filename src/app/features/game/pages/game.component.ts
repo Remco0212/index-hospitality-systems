@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { DroppingObject } from "../models/dropping-object.model";
 import { Score } from "../../../shared/models/score.model";
 import { GameService } from "../services/game.service";
@@ -12,11 +12,13 @@ import { ActivatedRoute, Router } from "@angular/router";
     templateUrl: "./game.component.html",
     styleUrls: ["./game.component.scss"]
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
     public countdownNumber = 3;
+    public timer = 0;
     public droppingItems: DroppingObject[] = [];
     public score: Score = new Score();
     private gameInterval!: any;
+    private timerInterval!: any;
 
     constructor(
         private readonly gameService: GameService,
@@ -24,13 +26,16 @@ export class GameComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private dialog: MatDialog
-    ) {
+    ) {}
+
+    public ngOnInit(): void {
+        this.timer = 0;
         this.startCountdown();
     }
 
-    public ngOnInit(): void {
-        this.score.score = 0;
-        this.score.lives = 3;
+    public ngOnDestroy(): void {
+        clearInterval(this.timerInterval);
+        clearInterval(this.gameInterval);
     }
 
     public startCountdown(): void {
@@ -48,18 +53,25 @@ export class GameComponent implements OnInit {
     }
 
     private startGame(): void {
+        this.gameService.resetGame();
+        this.timerInterval = setInterval(() => {
+            this.timer++;
+            this.gameService.generateNewItems();
+            if (this.timer >= 30) {
+                this.gameEnded();
+            }
+        }, 1000);
+
         this.gameInterval = setInterval(() => {
             window.requestAnimationFrame(() => {
                 this.droppingItems = this.gameService.updateGameState();
                 this.score = this.gameService.getCurrentScore();
-                if (this.score.lives <= 0) {
-                    this.gameEnded();
-                }
             });
-        }, 16);
+        }, 8);
     }
 
     private gameEnded(): void {
+        clearInterval(this.timerInterval);
         clearInterval(this.gameInterval);
         const dialogConfig = new MatDialogConfig();
 
